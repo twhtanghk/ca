@@ -1,0 +1,15 @@
+version: '2'
+services:
+  ca:
+    image: twhtanghk/ca
+    ports:
+      - 1337
+    volume:
+      - ./data/data.db:/usr/src/app/data/data.db
+      - ./data/cacert.pem:/usr/src/app/data/cacert.pem
+      - ./data/private/cakey.pem:/usr/src/app/data/private/cakey.pem
+      - ./config/server.coffee:/usr/src/app/config/env/production.coffee
+      - ./config/client.coffee:/usr/src/app/www/js/config/env/production.coffee
+      - ./config/test.coffee:/usr/src/app/test/config/env/production.coffee
+    env_file:
+      - ../.env

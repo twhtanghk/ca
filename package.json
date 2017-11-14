@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "coffee-script": "^1.12.7",
+    "mocha": "^4.0.1",
+    "sails": "^0.12.14"
+  },
+  "scripts": {
+    "prestart": "NODE_ENV=production webpack",
+    "start": "node app.js --prod",
+    "test": "mocha test/bootstrap.test.coffee test/unit/**/*.coffee"
+  }
+}
