@@ -8,10 +8,6 @@ module.exports =
       unique: true
       required: true
       primaryKey: true
-    org:
-      type: 'string'
-      defaultsTo: ->
-        sails.config.user.org
     c:
       type: 'string'
       defaultsTo: ->
