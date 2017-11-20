@@ -8,7 +8,7 @@
 
 default path of ca key file
 
-        keyFile: './data/private/cakey.pem'
+        keyFile: './data/cakey.pem'
 
 return private key in pem format
 
