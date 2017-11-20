@@ -7,7 +7,7 @@ services:
     volumes:
       - ./data/data.db:/usr/src/app/data/data.db
       - ./config/cacert.pem:/usr/src/app/data/cacert.pem
-      - ./config/cakey.pem:/usr/src/app/data/private/cakey.pem
+      - ./config/cakey.pem:/usr/src/app/data/cakey.pem
       - ./config/server.coffee:/usr/src/app/config/env/production.coffee
       - ./config/client.coffee:/usr/src/app/www/js/config/env/production.coffee
       - ./config/test.coffee:/usr/src/app/test/config/env/production.coffee
