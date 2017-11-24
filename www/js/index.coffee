@@ -7,7 +7,7 @@ E = require 'react-script'
 ReactDOM = require 'react-dom'
 MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
 AppBar = require('./appbar.coffee').component
-CertList = require('./body.coffee').component
+CertList = require('./cert.coffee').component
 
 elem =
   E MuiThemeProvider,

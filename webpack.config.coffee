@@ -1,6 +1,7 @@
+{load} = require 'activerecord-model'
 _ = require 'lodash'
 path = require 'path'
-webpack = require 'webpack'
+glob = require 'glob'
 
 babelLoader =
   loader: 'babel-loader'
@@ -22,6 +23,11 @@ babelLoader =
     ]
 
 module.exports =
+  node:
+    module: 'empty'
+    net: 'empty'
+    fs: 'empty'
+    'child_process': 'empty'
   entry:
     index: [
       'whatwg-fetch'
@@ -29,14 +35,11 @@ module.exports =
       './www/js/index.coffee'
     ]
     callback: './www/js/callback.coffee'
+  externals:
+    config: "global.sails = {config: #{JSON.stringify load path.join(__dirname, 'www/js')}}"
   output:
     path: path.join __dirname, 'www/js'
     filename: "[name].js"
-  plugins: [
-    new webpack.EnvironmentPlugin(
-      _.pick(process.env, 'PROFILEURL', 'AUTHURL', 'CLIENT_ID', 'SCOPE')
-    )
-  ]
   module:
     loaders: [
       { 
@@ -55,16 +58,19 @@ module.exports =
         ] 
       }
       { 
-        test: /saga\-model/
+        test: /\.litcoffee$/
         use: [
-          babelLoader
+          {
+            loader: 'coffee-loader'
+            options:
+              sourceMap: true
+              literate: true
+          }
         ]
       }
       { 
         test: /\.coffee$/
-        exclude: /node_modules/
         use: [
-          babelLoader
           {
             loader: 'coffee-loader'
             options:
@@ -73,4 +79,4 @@ module.exports =
         ]
       }
     ]
-  devtool: "#source-map"
+#  devtool: "#source-map"
