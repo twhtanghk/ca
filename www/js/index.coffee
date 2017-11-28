@@ -23,30 +23,15 @@ composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 store = createStore reducer, {}, composeEnhancers applyMiddleware.apply(@, require './middleware.coffee')
 
-sails.config.oauth2.getToken = (opt) ->
-  yield new Promise (resolve, reject) ->
-    store.dispatch type: 'login'
-    unsubscribe = store.subscribe ->
-      if sails.config.oauth2.token != store.getState().auth.token
-        sails.config.oauth2.token = store.getState().auth.token
-        unsubscribe()
-        resolve sails.config.oauth2.token
-      if sails.config.oauth2.error != store.getState().auth.error
-        sails.config.oauth2.error = store.getState().auth.error
-        unsubscribe()
-        reject sails.config.oauth2.error
-
-AuthC = connect(((state) -> state.auth), Auth.actionCreator)(Auth.component)
+Auth = connect(((state) -> state.auth), Auth.actionCreator)(Auth.component)
 CertList = connect(((state) -> certs: state.certs), CertList.actionCreator)(CertList.component)
-
-store.dispatch type: 'Cert.fetchAll'
 
 elem =
   E Provider, store: store,
     E MuiThemeProvider,
       E 'div',
         E Toastr.default
-        E AuthC,
+        E Auth,
           AUTHURL: sails.config.oauth2.url.authorize
           CLIENT_ID: sails.config.oauth2.client.id
           SCOPE: sails.config.oauth2.scope
