@@ -27,4 +27,9 @@ send pem format of created CSR to server
                 cert = stamp csr: forge.pki.certificationRequestToPem csr
                 yield cert.save()
 
-            .use sails.config.api().use sails.config.oauth2.getOpts
+fetch list of my certificates
+
+              fetchMyCert: ->
+                @fetchAll url: '/api/my/cert'
+
+            .use sails.config.api()

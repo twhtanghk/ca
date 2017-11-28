@@ -3,6 +3,7 @@ E = require 'react-script'
 AppBar = require('material-ui/AppBar').default
 Drawer = require('material-ui/Drawer').default
 MenuItem = require('material-ui/MenuItem').default
+Auth = require 'rc-oauth2'
 
 class _AppBar extends React.Component
   state:
