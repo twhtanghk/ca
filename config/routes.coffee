@@ -6,6 +6,12 @@ module.exports =
     'GET /api/user':
       controller: 'UserController'
       action: 'find'
+    'GET /api/cert':
+      controller: 'CertController'
+      action: 'find'
+    'GET /api/my/cert':
+      controller: 'CertController'
+      action: 'findMy'
     'POST /api/cert':
       controller: 'CertController'
       action: 'sign'

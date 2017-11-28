@@ -1,6 +1,8 @@
     actionUtil = require 'sails/lib/hooks/blueprints/actionUtil'
 
     module.exports =
+      findMy: (req, res) ->
+        @find req, res
       sign: (req, res) ->
         values = actionUtil.parseValues req
         sails.models.cert
