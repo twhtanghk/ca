@@ -1,3 +1,5 @@
+co = require 'co'
+
 Cert = sails.config.cert.model()
 
 module.exports = [
@@ -9,7 +11,9 @@ module.exports = [
             ret = []
             for i from iter()
               ret.push i
-            dispatch 'Cert.fetchAll.ok', certs: ret
+            dispatch
+              type: 'Cert.fetchAll.ok'
+              certs: ret
           .catch (err) ->
             console.log err
 ]

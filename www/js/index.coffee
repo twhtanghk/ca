@@ -10,21 +10,18 @@ AppBar = require('./appbar.coffee').component
 {compose, createStore, combineReducers, applyMiddleware} = require 'redux'
 {Provider, connect} = require 'react-redux'
 Auth = require 'rc-oauth2'
-CertList = require('./cert.coffee').component
+CertList = require './cert.coffee'
 Toastr = require 'react-redux-toastr'
 co = require 'co'
-
-initState =
-  auth: Auth.state
-  data: CertList.state
 
 reducer = combineReducers
   auth: Auth.reducer
   toastr: Toastr.reducer
+  certs: CertList.reducer
 
 composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-store = createStore reducer, initState, composeEnhancers()
+store = createStore reducer, {}, composeEnhancers applyMiddleware.apply(@, require './middleware.coffee')
 
 sails.config.oauth2.getToken = (opt) ->
   yield new Promise (resolve, reject) ->
@@ -40,6 +37,9 @@ sails.config.oauth2.getToken = (opt) ->
         reject sails.config.oauth2.error
 
 AuthC = connect(((state) -> state.auth), Auth.actionCreator)(Auth.component)
+CertList = connect(((state) -> certs: state.certs), CertList.actionCreator)(CertList.component)
+
+store.dispatch type: 'Cert.fetchAll'
 
 elem =
   E Provider, store: store,
