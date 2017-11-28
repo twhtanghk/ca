@@ -28,15 +28,16 @@ module.exports =
     net: 'empty'
     fs: 'empty'
     'child_process': 'empty'
+  externals:
+    xml2js: 'xml2js'
   entry:
     index: [
       'whatwg-fetch'
       'babel-polyfill'
       './www/js/index.coffee'
+      './www/js/config.coffee'
     ]
     callback: './www/js/callback.coffee'
-  externals:
-    config: "global.sails = {config: #{JSON.stringify load path.join(__dirname, 'www/js')}}"
   output:
     path: path.join __dirname, 'www/js'
     filename: "[name].js"
