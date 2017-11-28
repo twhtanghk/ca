@@ -7,6 +7,9 @@ Avatar = require('material-ui/Avatar').default
 Person = require('material-ui/svg-icons/social/person').default
 
 class CertList extends React.Component
+  componentDidMount: ->
+    @props.getCerts()
+
   render: ->
     E List, 
       @props.certs.map (cert) ->
@@ -23,10 +26,9 @@ reducer = (state, action) ->
     else
       state || []
       
-actionCreator = (dispatch) ->
+actionCreator =
   getCerts: ->
-    dispatch
-      type: 'Cert.fetchAll'
+    type: 'Cert.fetchAll'
 
 module.exports =
   component: CertList
