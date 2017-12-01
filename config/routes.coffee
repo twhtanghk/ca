@@ -9,7 +9,7 @@ module.exports =
     'GET /api/cert':
       controller: 'CertController'
       action: 'find'
-    'GET /api/my/cert':
+    'GET /api/cert/me':
       controller: 'CertController'
       action: 'findMy'
     'POST /api/cert':
