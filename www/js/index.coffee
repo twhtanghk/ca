@@ -1,4 +1,4 @@
-require 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+require 'react-redux-toastr/src/styles/index.scss'
 
 require './config.coffee'
 React = require 'react'
@@ -21,7 +21,7 @@ reducer = combineReducers
 
 composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-store = createStore reducer, {}, composeEnhancers applyMiddleware.apply(@, require './middleware.coffee')
+store = createStore reducer, {}, composeEnhancers applyMiddleware require './middleware.coffee'
 
 Auth = connect(((state) -> state.auth), Auth.actionCreator)(Auth.component)
 CertList = connect(((state) -> certs: state.certs), CertList.actionCreator)(CertList.component)
@@ -37,5 +37,5 @@ elem =
           SCOPE: sails.config.oauth2.scope
         E AppBar
         E CertList
-  
+
 ReactDOM.render elem, document.getElementById 'root'
