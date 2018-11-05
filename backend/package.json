@@ -1,0 +1,41 @@
+{
+  "name": "ca",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
+  "dependencies": {
+    "@sailshq/lodash": "^3.10.3",
+    "activerecord-model": "^0.0.11",
+    "async": "2.0.1",
+    "co": "^4.6.0",
+    "coffeescript": "^2.3.2",
+    "node-forge": "^0.7.6",
+    "pem": "^1.13.1",
+    "sails": "^1.0.2",
+    "sails-hook-orm": "^2.0.0-16",
+    "sails-hook-requestlogger-file": "^2.0.5",
+    "sails_policy": "^0.0.3",
+    "supertest": "^3.3.0"
+  },
+  "devDependencies": {
+    "@sailshq/eslint": "^4.19.3",
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "start": "NODE_ENV=production node app.js",
+    "test": "mocha test/bootstrap.test.coffee test/unit/**/*.coffee",
+    "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
+    "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anonymous node/sails user/ca.git"
+  },
+  "author": "anonymous node/sails user",
+  "license": "",
+  "engines": {
+    "node": ">=10.12"
+  }
+}
