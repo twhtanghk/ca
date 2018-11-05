@@ -1,0 +1,21 @@
+module.exports =
+  routes:
+    'GET /api/user/:id':
+      controller: 'UserController'
+      action: 'findOne'
+    'GET /api/user':
+      controller: 'UserController'
+      action: 'find'
+    'POST /api/cert':
+      controller: 'CertController'
+      action: 'create'
+    'GET /api/cert/email':
+      controller: 'CertController'
+      action: 'findByEmail'
+    'GET /api/cert':
+      controller: 'CertController'
+      action: 'find'
+    'DELETE /api/cert/:id':
+      model: 'cert'
+      controller: 'CertController'
+      action: 'destroy'
