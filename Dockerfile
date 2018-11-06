@@ -5,10 +5,8 @@ ADD . $APP
 
 WORKDIR $APP
 
-RUN yarn install \
-&&  sed 's/demoCA/data/g' </etc/ssl/openssl.cnf >/tmp/$$ \
-&&  mv /tmp/$$ /etc/ssl/openssl.cnf
+RUN (cd backend; yarn install)
 
 EXPOSE 1337
 
-ENTRYPOINT ["npm", "start"]
+CMD cd backend && npm start
