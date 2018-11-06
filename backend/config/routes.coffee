@@ -3,6 +3,10 @@ module.exports =
     'GET /api/user/:id':
       controller: 'UserController'
       action: 'findOne'
+    'GET /api/user/:id/secret':
+      model: 'user'
+      controller: 'UserController'
+      action: 'secret'
     'GET /api/user':
       controller: 'UserController'
       action: 'find'

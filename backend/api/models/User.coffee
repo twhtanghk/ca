@@ -1,15 +1,16 @@
-Promise = require 'bluebird'
-pem = Promise.promisifyAll require 'pem'
-
 module.exports =
   tableName: 'user'
   schema: true
-  primaryKey: 'email'
   attributes:
+    id:
+      type: 'number'
+      autoIncrement: true
     email:
       type: 'string'
       unique: true
       required: true
+    secret:
+      type: 'string'
     certs:
       collection: 'cert'
       via: 'createdBy'
