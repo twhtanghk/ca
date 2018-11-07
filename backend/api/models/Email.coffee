@@ -9,20 +9,9 @@ module.exports =
       autoIncrement: true
     hash:
       type: 'string'
-    ###
-      allowed values:
-        enable 2 factor
-        disable 2 factor
-    ###
-    action:
-      type: 'string'
-      required: true
     createdBy:
       model: 'user'
       required: true
-  beforeCreate: (values, cb) ->
-    values.hash = authenticator.generateSecret()
-    cb()
   afterCreate: (values, cb) ->
     transporter = require('nodemailer').createTransport sails.config.email.opts
     transporter.sendMail

@@ -1,9 +1,18 @@
 module.exports =
   routes:
     'GET /api/user/:id':
+      model: 'user'
       controller: 'UserController'
       action: 'findOne'
-    'GET /api/user/:id/secret':
+    'PUT /api/user/2fa':
+      model: 'user'
+      controller: 'UserController'
+      action: 'otp'
+    'GET /api/user/verify/:hash':
+      model: 'user'
+      controller: 'UserController'
+      action: 'verify'
+    'GET /api/user/:id/qrcode':
       model: 'user'
       controller: 'UserController'
       action: 'secret'

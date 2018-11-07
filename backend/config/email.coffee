@@ -6,7 +6,7 @@ module.exports =
     msg: _.template """
         <html>
           <body>
-            Please click <a href="<%=cbUrl%>">here</a> to #{action} for CA
+            Please click <a href="<%=cbUrl%>">here</a> to verify your action for CA
           </body>
         </html>
       """

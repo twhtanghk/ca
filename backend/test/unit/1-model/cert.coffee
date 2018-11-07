@@ -1,42 +1,38 @@
 describe 'model', ->
-  user = 'test@abc.com'
+  email = 'test@abc.com'
+  user = null
   key = null
   csr = null
   crt = null
 
   it 'create user', ->
-    sails.models.user
-      .findOrCreate {email: user}, {email: user}
+    user = await sails.models.user
+      .findOrCreate {email: email}, {email: email}
 
   it 'create private key', ->
-    sails.models.cert.createPrivateKey()
-      .then (newkey) ->
-        key = newkey
+    key = await sails.models.cert
+      .createPrivateKey()
 
   it 'create csr', ->
-    sails.models.cert
+    csr = await sails.models.cert
       .createCSR 
         clientkey: key
-        commonName: user
-      .then (newcsr) ->
-        csr = newcsr
+        commonName: user.email
 
   it 'create certificate', ->
-    sails.models.cert.create createdBy: user
-      .then (newcrt) ->
-        crt = newcrt
+    crt = await sails.models.cert
+      .create createdBy: user.id
 
   it 'get public key', ->
-    sails.models.user.findOne email: user
+    user = await sails.models.user
+      .findValidCertByEmail user.email
       .populateAll()
-      .then (user) ->
-         sails.models.cert.publicKey user?.certs[0]
+    sails.models.cert.publicKey user?.certs[0]
 
   it 'get cert info', ->
-    sails.models.user.findOne email: user
-      .populateAll()
-      .then (user) ->
-         sails.models.cert.info user?.certs[0]
+    user = await sails.models.user
+      .findValidCertByEmail user.email
+    sails.models.cert.info user?.certs[0]
 
-  it 'destroy cert', ->
-    sails.models.cert.destroy createdBy: user
+  it 'destroy user', ->
+    sails.models.user.destroy id: user.id

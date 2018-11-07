@@ -14,7 +14,21 @@ module.exports =
     certs:
       collection: 'cert'
       via: 'createdBy'
-  afterDestroy: (records, cb) ->
-    sails.models.cert
-      .destroy createdBy: _.map(records, 'email')
-      .exec cb
+  customToJSON: ->
+    _.omit _.extend(@, '2fa': @secret?), secret
+  beforeDestroy: (records, cb) ->
+    crt = ->
+      await sails.models.cert
+        .destroy createdBy: _.map(records, 'id')
+    crt()
+      .then ->
+        cb()
+      .catch cb
+  findValidCertById: (id) ->
+    sails.models.user
+      .findOne id: id
+      .populate('certs', {revokedReason: '', revokedAt: null})
+  findValidCertByEmail: (email) ->
+    sails.models.user
+      .findOne email: email
+      .populate('certs', {revokedReason: '', revokedAt: null})

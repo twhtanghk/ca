@@ -2,6 +2,7 @@
     crypto = require 'crypto'
     Promise = require 'bluebird'
     pem = Promise.promisifyAll require 'pem'
+    {pki} = require 'node-forge'
 
     module.exports =
       ca:
@@ -12,8 +13,14 @@ default path of ca key file
 
 return private key in pem format
 
-        privateKey: ->
+        privateKeyPem: ->
           fs.readFileSync(sails.config.ca.keyFile).toString()
+
+return private key
+
+        privateKey: ->
+          pki
+            .decryptRsaPrivateKey module.exports.ca.privateKeyPem(), module.exports.ca.passphrase
 
 passphrase for private key
 
@@ -27,6 +34,13 @@ return certificate in pem format
 
         crt: ->
           fs.readFileSync(sails.config.ca.crtFile).toString()
+
+return public key
+
+        publicKey: ->
+          pki
+            .certificateFromPem module.exports.ca.crt()
+            .publicKey
 
 sign input csr and return promise of {certificate, csr, clientKey, serviceKey}
 

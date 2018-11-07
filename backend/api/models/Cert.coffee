@@ -29,9 +29,8 @@ module.exports =
       type: 'string'
 
   publicKey: (cert) ->
-    getPublicKeyAsync cert.crt
-      .then (res) ->
-        res.publicKey
+    {publicKey} = await getPublicKeyAsync cert.crt
+    publicKey
 
   info: (cert) ->
     readCertificateInfoAsync cert.crt
@@ -50,7 +49,7 @@ module.exports =
     ca = sails.config.ca
     opts = _.defaults {}, opts,
       selfSigned: false
-      serviceKey: ca.privateKey()
+      serviceKey: ca.privateKeyPem()
       serviceKeyPassword: ca.passphrase
       serviceCertificate: ca.crt()
     createCertificateAsync opts
@@ -58,43 +57,21 @@ module.exports =
         certificate
 
   beforeCreate: (values, cb) ->
-    sails.models.cert
-      .findValidOne values.createdBy
-      .then (crt) ->
-        if crt == null
-          return
-        Promise.reject new Error "valid certificate exists"
-      .then ->
-        sails.models.cert.createPrivateKey()
-      .then (key) ->
-        values.key = key
-      .then ->
-        sails.models.cert.createCSR
+    crt = ->
+      id = values.createdBy?.id || values.createdBy
+      user = await sails.models.user.findValidCertById id
+      if user.certs.length != 0
+        return cb new Error "valid certificate exists"
+      values.key = await sails.models.cert.createPrivateKey()
+      data =
           clientkey: values.key
-          commonName: values.createdBy
-      .then (csr) ->
-        sails.models.cert.createCert csr: values.csr
-      .then (crt) ->
-        values.crt = crt
-        readCertificateInfoAsync crt
-      .then (info) ->
-        sails.log.info info
-        values.dtStart = new Date info.validity.start
-        values.dtEnd = new Date info.validity.end
+          commonName: user.email
+      csr = await sails.models.cert.createCSR data
+      values.crt = await sails.models.cert.createCert csr: csr
+      info = await readCertificateInfoAsync values.crt
+      values.dtStart = new Date info.validity.start
+      values.dtEnd = new Date info.validity.end
+    crt()
       .then ->
         cb()
       .catch cb
-        
-  findValidOne: (email, asAt = new Date()) ->
-    sails.models.cert
-      .find()
-      .where
-        createdBy: email
-        revokedAt: null
-        revokedReason: ''
-        dtStart:
-          '<=': asAt
-        dtEnd:
-          '>=': asAt
-      .then (certs) ->
-        certs[0] || null
