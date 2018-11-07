@@ -1,9 +1,7 @@
 module.exports =
-  admin: [
-    'admin@abc.com'
-  ]
+  admin: process.env.ADMIN.split ','
   ca:
-    passphrase: 'password'
+    passphrase: process.env.CAKEY_SECRET
   oauth2:
     url:
       verify: 'https://mobtest.ml/auth/oauth2/verify/'
