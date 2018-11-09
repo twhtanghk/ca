@@ -14,7 +14,7 @@ module.exports =
       controller: 'UserController'
       action: 'otp'
 
-    'GET /api/user/verify/:hash':
+    'GET /api/user/verify':
       model: 'user'
       controller: 'UserController'
       action: 'verify'

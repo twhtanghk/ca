@@ -19,17 +19,21 @@
         else
           res.serverError 'parameter flag not defined'
       verify: (req, res) ->
-        sails.models.email
+        hash = req.param 'hash', null
+        sails.log.info hash
+        if hash == null
+          res.serverError 'parameter hash not defined'
+        action = await sails.models.email
           .findOne
-            hash: req.param 'hash', null
+            hash: hash
             createdAt:
               '>=': new Date(Date.now() - process.env.VALIDITY * 60000)
               '<': new Date()
-          .then (email) ->
-            if email?
-              data = JSON.parse sails.config.ca.privateKey().decrypt decode64 email.hash
-            else
-              res.serverError "No such email verificiation or expired with #{process.env.VALIDIY} min"
+        if action?
+          await sails.models.user.verify req.user, hash
+          res.ok()
+        else
+          res.serverError "No such email verificiation or expired with #{process.env.VALIDIY} min"
       secret: (req, res) ->
         pk = actionUtil.requirePk req
         Model = actionutil.parseModel req

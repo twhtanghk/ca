@@ -1,3 +1,5 @@
+{encode64, decode64} = require('node-forge').util
+
 module.exports =
   tableName: 'user'
   schema: true
@@ -33,14 +35,14 @@ module.exports =
   otp: (user, enable) ->
     sails.models.email
       .create
-        hash: sails.config.ca.publicKey().encrypt JSON.stringify
+        hash: encode64 sails.config.ca.publicKey().encrypt JSON.stringify
           otp: enable
           createdAt: new Date()
         createdBy: user.id
       .meta fetch: true
   # assume verified action not yet expired
   verify: (user, hash) ->
-    data = JSON.parse sails.config.ca.privateKey().decrypt hash
+    data = JSON.parse sails.config.ca.privateKey().decrypt decode64 hash
     data.createdAt = new Date()
     secret = null
     if data.otp
