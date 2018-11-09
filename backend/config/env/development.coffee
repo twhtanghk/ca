@@ -15,5 +15,9 @@ module.exports =
       id: process.env.USER_ID
       secret: process.env.USER_SECRET
       email: process.env.USER_EMAIL
+  email:
+    from: process.env.SMTP_FROM
+    opts:
+      host: process.env.SMTP_HOST
   log:
     level: 'silly'

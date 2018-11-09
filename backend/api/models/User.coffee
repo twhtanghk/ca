@@ -14,8 +14,6 @@ module.exports =
     certs:
       collection: 'cert'
       via: 'createdBy'
-  customToJSON: ->
-    _.omit _.extend(@, '2fa': @secret?), secret
   beforeDestroy: (records, cb) ->
     crt = ->
       await sails.models.cert
@@ -32,3 +30,19 @@ module.exports =
     sails.models.user
       .findOne email: email
       .populate('certs', {revokedReason: '', revokedAt: null})
+  otp: (user, enable) ->
+    sails.models.email
+      .create
+        hash: sails.config.ca.publicKey().encrypt JSON.stringify
+          otp: enable
+          createdAt: new Date()
+        createdBy: user.id
+      .meta fetch: true
+  # assume verified action not yet expired
+  verify: (user, hash) ->
+    data = JSON.parse sails.config.ca.privateKey().decrypt hash
+    data.createdAt = new Date()
+    secret = null
+    if data.otp
+      secret = sails.config.ca.publicKey().encrypt JSON.stringify data
+    sails.models.user.update {id: user.id}, {secret: secret}

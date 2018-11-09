@@ -1,5 +1,5 @@
 describe 'model', ->
-  email = 'test@abc.com'
+  email = 'twhtanghk@gmail.com'
   user = null
   key = null
   csr = null
@@ -33,6 +33,12 @@ describe 'model', ->
     user = await sails.models.user
       .findValidCertByEmail user.email
     sails.models.cert.info user?.certs[0]
+
+  it 'enable otp', ->
+    sails.models.user.otp user, true
+
+  it 'disable otp', ->
+    sails.models.user.otp user, false
 
   it 'destroy user', ->
     sails.models.user.destroy id: user.id

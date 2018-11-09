@@ -14,9 +14,15 @@ module.exports =
       required: true
   afterCreate: (values, cb) ->
     transporter = require('nodemailer').createTransport sails.config.email.opts
-    transporter.sendMail
-      from: sails.config.email.from
-      to: values.createdBy
-      subject: "#{values.action} for CA"
-      html: sails.config.email.msg _.extend {}, values, cbUrl: ->
-        "#{process.env.ROOTURL}/api/action?hash=#{values.hash}"
+    mail = ->
+      user = await sails.models.user.findOne id: values.createdBy
+      cbUrl = "#{process.env.ROOTURL}/api/verify?hash=#{values.hash}"
+      transporter.sendMail
+        from: sails.config.email.from
+        to: user.email
+        subject: "User Verification for CA"
+        html: sails.config.email.msg cbUrl: cbUrl
+    mail()
+      .then ->
+        cb()
+      .catch cb
