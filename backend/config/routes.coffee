@@ -1,33 +1,33 @@
 module.exports =
   routes:
+    'GET /api/user':
+      controller: 'UserController'
+      action: 'find'
+
     'GET /api/user/:id':
       model: 'user'
       controller: 'UserController'
       action: 'findOne'
-    'PUT /api/user/2fa':
+
+    'PUT /api/user/otp':
       model: 'user'
       controller: 'UserController'
       action: 'otp'
+
     'GET /api/user/verify/:hash':
       model: 'user'
       controller: 'UserController'
       action: 'verify'
+
     'GET /api/user/:id/qrcode':
       model: 'user'
       controller: 'UserController'
       action: 'secret'
-    'GET /api/user':
-      controller: 'UserController'
-      action: 'find'
+
     'POST /api/cert':
       controller: 'CertController'
       action: 'create'
-    'GET /api/cert/email':
-      controller: 'CertController'
-      action: 'findByEmail'
-    'GET /api/cert':
-      controller: 'CertController'
-      action: 'find'
+
     'DELETE /api/cert/:id':
       model: 'cert'
       controller: 'CertController'
