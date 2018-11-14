@@ -10,6 +10,7 @@
     "async": "^2.6.1",
     "co": "^4.6.0",
     "coffeescript": "^2.3.2",
+    "method-override": "^3.0.0",
     "node-forge": "^0.7.6",
     "nodeforge": "^1.0.0",
     "nodemailer": "^4.6.8",
