@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <authForm :eventBus='eventBus' :oauth2='oauth2' />
     <drawer />
     <toolbar />
     <users />
@@ -8,6 +9,7 @@
 
 <script lang='coffee'>
 Vue = require('vue').default
+{eventBus} = require('./lib').default
 Vuetify = require 'vuetify'
 
 Vue.use Vuetify
@@ -18,6 +20,13 @@ export default
     drawer: require('./drawer').default
     toolbar: require('./toolbar').default
     users: require('./content').default
+  data: ->
+    eventBus: eventBus
+    oauth2:
+      url: process.env.AUTH_URL
+      client: process.env.CLIENT_ID
+      scope: 'User'
+      response_type: 'token'
 </script>
 
 <style lang='scss'>
