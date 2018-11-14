@@ -25,6 +25,11 @@ export default
         icon: 'view_list'
         action: @list
       }
+      {
+        title: 'Create Personal Certificate'
+        icon: 'add_circle'
+        action: @create
+      }
     ]
   methods:
     hide: ->
@@ -32,6 +37,9 @@ export default
     list: ->
       @hide()
       eventBus.$emit 'user.list'
+    create: ->
+      @hide()
+      eventBus.$emit 'cert.create'
   created: ->
     eventBus.$on 'menu.click', =>
       @display = not @display
