@@ -1,12 +1,12 @@
 <template>
   <v-list two-line>
-    <v-list-tile v-for='cert in certs' :key=cert.id avatar @click='select'>
+    <v-list-tile v-for='user in users' :key=user.id avatar @click='select'>
       <v-list-tile-avatar>
         <v-icon>verified_user</v-icon>
       </v-list-tile-avatar>
       <v-list-tile-content>
-        <v-list-tile-title>{{ item.email }}</v-list-tile-title>
-        <v-list-tile-sub-title>{{ item.dtEnd }}</v-list-tile-sub-title>
+        <v-list-tile-title>{{ user.email }}</v-list-tile-title>
+        <v-list-tile-sub-title>{{ user.certs[0].dtStart }} - {{ user.certs[0].dtEnd }}</v-list-tile-sub-title>
       </v-list-tile-content>
       <v-list-tile-action>
         <v-btn icon ripple>
@@ -19,18 +19,23 @@
 
 <script lang='coffee'>
 {eventBus} = require('./lib').default
-{User} = require('./model').default
+{User, Cert} = require('./model').default
 
 export default
   extends: require('vue.model/src/model').default
   data: ->
-    certs: []
+    users: []
   methods:
     list: ->
+      @users = []
       for await page from User.iterPage sort: email: 1
-        @certs.concat page
+        @users = @users.concat page
+    create: ->
+      cert = await Cert.create()
+      @list()
   created: ->
     @list()
     eventBus
       .$on 'user.list', @list
+      .$on 'cert.create', @create
 </script>
