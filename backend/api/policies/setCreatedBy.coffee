@@ -1,3 +1,7 @@
 module.exports = (req, res, next) ->
-  req.body.createdBy = req.user.email
-  next()
+  sails.models.user
+    .findOne email: req.user.email
+    .then (user) ->
+      req.body.createdBy = user.id
+      next()
+    .catch next
