@@ -5,7 +5,6 @@ module.exports =
       findOne: true
       find: true
       otp: ['isAuth']
-      verify: ['isAuth']
     CertController:
       '*': false
       create: ['isAuth', 'setCreatedBy']
@@ -13,3 +12,5 @@ module.exports =
       findOne: true
       find: true
       destroy: ['isAuth', 'isOwner']
+    ActionController:
+      create: ['isAuth', 'setCreatedBy', 'parseAction']
