@@ -24,7 +24,7 @@ return private key
 
 passphrase for private key
 
-        passphrase: 'password'
+        passphrase: process.env.CAKEY_SECRET || 'password'
 
 default path of ca certificate file
 

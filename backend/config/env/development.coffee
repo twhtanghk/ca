@@ -1,12 +1,7 @@
 module.exports =
-  admin: [
-    'admin@abc.com'
-  ]
-  ca:
-    passphrase: 'password'
   oauth2:
     url:
-      verify: 'https://abc.com/auth/oauth2/verify/'
+      verify: process.env.VERIFY_URL || 'https://abc.com/auth/oauth2/verify/'
       token: 'https://abc.com/auth/oauth2/token/'
     client:
       id: process.env.CLIENT_ID
