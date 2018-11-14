@@ -28,6 +28,9 @@ module.exports =
     revokedReason:
       type: 'string'
 
+  customToJSON: ->
+    _.omit @, 'key'
+
   publicKey: (cert) ->
     {publicKey} = await getPublicKeyAsync cert.crt
     publicKey

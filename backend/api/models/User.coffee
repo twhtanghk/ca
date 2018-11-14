@@ -16,6 +16,10 @@ module.exports =
     certs:
       collection: 'cert'
       via: 'createdBy'
+
+  customToJSON: ->
+    _.omit @, 'secret'
+
   beforeDestroy: (records, cb) ->
     crt = ->
       await sails.models.cert
@@ -24,14 +28,17 @@ module.exports =
       .then ->
         cb()
       .catch cb
+
   findValidCertById: (id) ->
     sails.models.user
       .findOne id: id
       .populate('certs', {revokedReason: '', revokedAt: null})
+
   findValidCertByEmail: (email) ->
     sails.models.user
       .findOne email: email
       .populate('certs', {revokedReason: '', revokedAt: null})
+
   otp: (user, enable) ->
     sails.models.email
       .create
@@ -40,6 +47,7 @@ module.exports =
           createdAt: new Date()
         createdBy: user.id
       .meta fetch: true
+
   # assume verified action not yet expired
   verify: (user, hash) ->
     data = JSON.parse sails.config.ca.privateKey().decrypt decode64 hash
