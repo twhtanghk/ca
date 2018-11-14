@@ -14,20 +14,24 @@
 </template>
 
 <script lang='coffee'>
-eventBus = require('vue.oauth2/src/eventBus').default
-
-list =
-  title: 'list'
-  icon: 'view_list'
-  action: ->
-    return
+{eventBus} = require('./lib').default
 
 export default
   data: ->
     display: false
     items: [
-      list
+      {
+        title: 'List'
+        icon: 'view_list'
+        action: @list
+      }
     ]
+  methods:
+    hide: ->
+      @display = false
+    list: ->
+      @hide()
+      eventBus.$emit 'user.list'
   created: ->
     eventBus.$on 'menu.click', =>
       @display = not @display

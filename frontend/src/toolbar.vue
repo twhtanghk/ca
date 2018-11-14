@@ -10,7 +10,7 @@
 </template>
 
 <script lang='coffee'>
-eventBus = require('vue.oauth2/src/eventBus').default
+{eventBus} = require('./lib').default
 
 export default
   methods: 

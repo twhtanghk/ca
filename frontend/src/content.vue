@@ -18,13 +18,19 @@
 </template>
 
 <script lang='coffee'>
-eventBus = require('vue.oauth2/src/eventBus').default
+{eventBus} = require('./lib').default
+{User} = require('./model').default
 
 export default
   extends: require('vue.model/src/model').default
   data: ->
     certs: []
+  methods:
+    list: ->
+      for await page from User.iterPage sort: email: 1
+        @certs.concat page
   created: ->
-    for await page from @iterPage sort: email: 1
-      @certs.concat page
+    @list()
+    eventBus
+      .$on 'user.list', @list
 </script>

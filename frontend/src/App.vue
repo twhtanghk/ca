@@ -2,7 +2,7 @@
   <v-app>
     <drawer />
     <toolbar />
-    <content />
+    <users />
   </v-app>
 </template>
 
@@ -17,7 +17,7 @@ export default
   components:
     drawer: require('./drawer').default
     toolbar: require('./toolbar').default
-    content: require('./content').default
+    users: require('./content').default
 </script>
 
 <style lang='scss'>
