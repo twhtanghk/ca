@@ -6,7 +6,7 @@
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title>{{ user.email }}</v-list-tile-title>
-        <v-list-tile-sub-title>{{ user.certs[0].dtStart }} - {{ user.certs[0].dtEnd }}</v-list-tile-sub-title>
+        <v-list-tile-sub-title v-if='user.certs.length > 0'>{{ user.certs[0].dtStart }} - {{ user.certs[0].dtEnd }}</v-list-tile-sub-title>
       </v-list-tile-content>
       <v-list-tile-action>
         <v-btn icon ripple>
