@@ -13,7 +13,7 @@ Vue = require('vue').default
 {Action} = require('./model').default
 Vuetify = require 'vuetify'
 
-Vue.use Vuetify
+Vue.use Vuetify, iconfont: 'fa'
 
 export default
   name: 'app'
@@ -38,6 +38,7 @@ export default
 <style lang='scss'>
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
 @import '~vuetify/dist/vuetify.min.css';
+@import '~@fortawesome/fontawesome-free/css/all.css';
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
