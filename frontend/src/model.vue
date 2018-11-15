@@ -19,4 +19,11 @@ export default
         default: 'api/cert'
       eventBus:
         default: eventBus
+  Action: new Vue
+    extends: Vue.component 'model'
+    props:
+      baseUrl:
+        default: 'api/action'
+      eventBus:
+        default: eventBus
 </script>
