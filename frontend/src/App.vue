@@ -10,6 +10,7 @@
 <script lang='coffee'>
 Vue = require('vue').default
 {eventBus} = require('./lib').default
+{Action} = require('./model').default
 Vuetify = require 'vuetify'
 
 Vue.use Vuetify
@@ -27,6 +28,11 @@ export default
       client: process.env.CLIENT_ID
       scope: 'User'
       response_type: 'token'
+  mounted: ->
+    url = new URL window.location
+    hash = url.searchParams.get('hash')
+    if hash?
+      Action.get data: hash: hash
 </script>
 
 <style lang='scss'>
