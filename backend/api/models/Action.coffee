@@ -16,7 +16,7 @@ module.exports =
     transporter = require('nodemailer').createTransport sails.config.email.opts
     mail = ->
       user = await sails.models.user.findOne id: values.createdBy
-      cbUrl = "#{process.env.ROOTURL}/api/user/verify?hash=#{encodeURIComponent values.hash}"
+      cbUrl = "#{process.env.ROOTURL}?hash=#{encodeURIComponent values.hash}"
       transporter.sendMail
         from: sails.config.email.from
         to: user.email
