@@ -1,7 +1,7 @@
 authenticator = require 'otplib/authenticator'
 
 module.exports =
-  tableName: 'email'
+  tableName: 'action'
   schema: true
   attributes:
     id:
