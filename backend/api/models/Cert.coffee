@@ -63,7 +63,7 @@ module.exports =
     crt = ->
       id = values.createdBy?.id || values.createdBy
       user = await sails.models.user.findValidCertById id
-      if user.certs.length != 0
+      if user.certs.length
         return cb new Error "valid certificate exists"
       values.key = await sails.models.cert.createPrivateKey()
       data =
