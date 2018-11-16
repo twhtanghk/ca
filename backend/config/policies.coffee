@@ -13,4 +13,6 @@ module.exports =
       find: true
       destroy: ['isAuth', 'isOwner']
     ActionController:
+      '*': false
       create: ['isAuth', 'setCreatedBy', 'parseAction']
+      findByHash: ['isAuth', 'setCreatedBy']
