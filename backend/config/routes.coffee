@@ -33,4 +33,4 @@ module.exports =
 
     'GET /api/action':
       controller: 'ActionController'
-      action: 'parse'
+      action: 'findByHash'
