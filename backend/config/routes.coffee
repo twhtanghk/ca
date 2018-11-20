@@ -10,9 +10,11 @@ module.exports =
       action: 'findOne'
 
     'PUT /api/user/otp':
-      model: 'user'
-      controller: 'UserController'
-      action: 'otp'
+      controller: 'ActionController'
+      action: 'create'
+      locals:
+        model: 'user'
+        action: 'otp'
 
     'GET /api/user/:id/qrcode':
       model: 'user'
