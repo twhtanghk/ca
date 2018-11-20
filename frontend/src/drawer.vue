@@ -22,13 +22,18 @@ export default
     items: [
       {
         title: 'List'
-        icon: 'view_list'
+        icon: 'fas fa-list'
         action: @list
       }
       {
         title: 'Create Personal Certificate'
-        icon: 'add_circle'
+        icon: 'fas fa-user-shield'
         action: @create
+      }
+      {
+        title: 'Enable 2 factor Authentication'
+        icon: 'fas fa-user-lock'
+        action: @otp
       }
     ]
   methods:
@@ -40,6 +45,9 @@ export default
     create: ->
       @hide()
       eventBus.$emit 'cert.create'
+    otp: ->
+      @hide()
+      eventBus.$emit 'user.otp'
   created: ->
     eventBus.$on 'menu.click', =>
       @display = not @display
