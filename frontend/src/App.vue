@@ -32,7 +32,10 @@ export default
     url = new URL window.location
     hash = url.searchParams.get('hash')
     if hash?
-      Action.get data: hash: hash
+      Action
+        .get data: hash: hash
+        .then ->
+          eventBus.$emit 'user.list'
 </script>
 
 <style lang='scss'>
