@@ -4,7 +4,7 @@ module.exports =
       '*': false
       findOne: true
       find: true
-      otp: ['isAuth']
+      otp: ['isAuth', 'setCreatedBy']
     CertController:
       '*': false
       create: ['isAuth', 'setCreatedBy']
