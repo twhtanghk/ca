@@ -37,9 +37,15 @@ export default
     create: ->
       cert = await Cert.create()
       @list()
+    otp: (enable = true) ->
+      User.update 
+        url: "#{User.baseUrl}/api/user/otp"
+        data:
+          enable: enable
   created: ->
     @list()
     eventBus
       .$on 'user.list', @list
       .$on 'cert.create', @create
+      .$on 'user.otp', @otp
 </script>
