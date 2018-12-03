@@ -2,7 +2,7 @@ module.exports =
   policies:
     UserController:
       '*': false
-      findOne: true
+      findOne: ['me']
       find: true
       otp: ['isAuth', 'setCreatedBy']
     CertController:
