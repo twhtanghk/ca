@@ -12,6 +12,8 @@ export default
         default: 'api/user'
       eventBus:
         default: eventBus
+      me:
+        default: null
   Cert: new Vue
     extends: Vue.component 'model'
     props:

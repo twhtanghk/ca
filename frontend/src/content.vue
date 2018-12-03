@@ -3,7 +3,7 @@
     <v-list-tile v-for='user in users' :key=user.id avatar @click='select'>
       <v-list-tile-avatar>
         <v-icon>
-          fas {{user.certs.length ? 'fa-user-shield' : 'fa-user'}}
+          fas {{user.secret ? 'fa-user-lock' : user.certs.length ? 'fa-user-shield' : 'fa-user'}}
         </v-icon>
       </v-list-tile-avatar>
       <v-list-tile-content>
@@ -39,7 +39,7 @@ export default
       @list()
     otp: (enable = true) ->
       User.update 
-        url: "#{User.baseUrl}/api/user/otp"
+        url: "#{User.baseUrl}/otp"
         data:
           enable: enable
   created: ->

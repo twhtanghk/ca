@@ -6,6 +6,9 @@
     <v-btn icon>
       <v-icon>search<v-icon>
     </v-btn>
+    <v-btn icon>
+      <anonymous />
+    </v-btn>
   </v-toolbar>
 </template>
 
@@ -13,6 +16,8 @@
 {eventBus} = require('./lib').default
 
 export default
+  components:
+    anonymous: require('./anonymous').default
   methods: 
     menuClick: ->
       eventBus.$emit 'menu.click'

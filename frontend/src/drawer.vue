@@ -1,13 +1,18 @@
 <template>
   <v-navigation-drawer v-model='display' fixed temporary>
     <v-list>
-      <v-list-tile v-for='item in items' :key='item.title' @click='item.action'>
-        <v-list-tile-action>
+      <v-list-tile v-for='item in items' @click='item.action'>
+        <v-list-tile-avatar>
           <v-icon>{{ item.icon }}</v-icon>
-        </v-list-tile-action>
+        </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          <v-list-tile-title>
+            {{ item.title }}
+          </v-list-title-title>
         </v-list-tile-content>
+        <v-list-tile-action>
+          <v-switch v-model="item.enable" v-if='"enable" in item' @change.stop='item.action($event, item.enable)'/>
+        </v-list-tile-action>
       </v-list-tile>
     </v-list>
   </v-navigation-drawer>
@@ -31,9 +36,10 @@ export default
         action: @create
       }
       {
-        title: 'Enable 2 factor Authentication'
+        title: 'Enable 2 Factor Auth'
         icon: 'fas fa-user-lock'
         action: @otp
+        enable: false
       }
     ]
   methods:
@@ -45,9 +51,9 @@ export default
     create: ->
       @hide()
       eventBus.$emit 'cert.create'
-    otp: ->
+    otp: (event, enable) ->
       @hide()
-      eventBus.$emit 'user.otp'
+      eventBus.$emit 'user.otp', enable: enable
   created: ->
     eventBus.$on 'menu.click', =>
       @display = not @display
