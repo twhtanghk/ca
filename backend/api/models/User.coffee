@@ -18,7 +18,7 @@ module.exports =
       via: 'createdBy'
 
   customToJSON: ->
-    _.omit @, 'secret'
+    _.omit _.extend(@, enable: @secret?), 'secret'
 
   beforeDestroy: (records, cb) ->
     crt = ->
