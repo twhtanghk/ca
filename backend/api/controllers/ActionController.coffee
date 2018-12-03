@@ -16,6 +16,7 @@ module.exports =
       if action?
         data = JSON.parse sails.config.ca.privateKey().decrypt decode64 hash
         req.options.action = "#{data.model}/#{data.action}"
+        _.extend req.body, _.omit(data, 'createdBy')
         sails.getActions()[req.options.action] req, res
       else
         res.badRequest 'Action expired or unauthorized access'
