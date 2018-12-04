@@ -12,8 +12,9 @@ export default
         default: 'api/user'
       eventBus:
         default: eventBus
-      me:
-        default: null
+    methods:
+      me: ->
+        await @read data: id: 'me'
   Cert: new Vue
     extends: Vue.component 'model'
     props:

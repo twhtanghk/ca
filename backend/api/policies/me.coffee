@@ -5,9 +5,6 @@ module.exports = (req, res, next) ->
     isAuth req, res, ->
       sails.models.user
         .findOne email: req.user.email
-        .then (user) ->
-          req.params.id = user.id
-          next()
-        .catch res.serverError
+        .then res.ok, res.serverError
   else
     next()

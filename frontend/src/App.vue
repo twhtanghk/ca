@@ -9,11 +9,12 @@
 
 <script lang='coffee'>
 Vue = require('vue').default
+require './font'
 {eventBus} = require('./lib').default
 {Action} = require('./model').default
 Vuetify = require 'vuetify'
 
-Vue.use Vuetify, iconfont: 'fa'
+Vue.use Vuetify
 
 export default
   name: 'app'
@@ -41,7 +42,6 @@ export default
 <style lang='scss'>
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons');
 @import '~vuetify/dist/vuetify.min.css';
-@import '~@fortawesome/fontawesome-free/css/all.css';
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -49,5 +49,9 @@ export default
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
+  button, .v-avatar {
+    font-size: 1.5rem;
+  }
 }
 </style>

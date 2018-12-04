@@ -2,9 +2,7 @@
   <v-list two-line>
     <v-list-tile v-for='user in users' :key=user.id avatar @click='select'>
       <v-list-tile-avatar>
-        <v-icon>
-          fas {{user.secret ? 'fa-user-lock' : user.certs.length ? 'fa-user-shield' : 'fa-user'}}
-        </v-icon>
+        <font-awesome-icon :icon='icon(user)' />
       </v-list-tile-avatar>
       <v-list-tile-content>
         <v-list-tile-title>{{ user.email }}</v-list-tile-title>
@@ -30,6 +28,13 @@ export default
   data: ->
     users: []
   methods:
+    icon: (user) ->
+      if user.secret?
+        'user-lock'
+      else if user.certs.length
+        'user-shield'
+      else
+        'user'
     list: ->
       @users = []
       for await page from User.iterPage sort: email: 1

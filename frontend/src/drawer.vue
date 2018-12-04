@@ -3,7 +3,7 @@
     <v-list>
       <v-list-tile v-for='item in items' @click='item.action'>
         <v-list-tile-avatar>
-          <v-icon>{{ item.icon }}</v-icon>
+          <font-awesome-icon :icon='item.icon' />
         </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title>
@@ -11,7 +11,7 @@
           </v-list-title-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-switch v-model="item.enable" v-if='"enable" in item' @change.stop='item.action($event, item.enable)'/>
+          <v-switch v-model="item.enable" v-if='"enable" in item' @change='item.action($event, item.enable)'/>
         </v-list-tile-action>
       </v-list-tile>
     </v-list>
@@ -27,17 +27,17 @@ export default
     items: [
       {
         title: 'List'
-        icon: 'fas fa-list'
+        icon: 'list'
         action: @list
       }
       {
         title: 'Create Personal Certificate'
-        icon: 'fas fa-user-shield'
+        icon: 'user-shield'
         action: @create
       }
       {
         title: 'Enable 2 Factor Auth'
-        icon: 'fas fa-user-lock'
+        icon: 'user-lock'
         action: @otp
         enable: false
       }
