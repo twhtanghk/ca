@@ -12,6 +12,8 @@ module.exports =
     createdBy:
       model: 'user'
       required: true
+  customToJSON: ->
+    _.omit @, 'hash'
   afterCreate: (values, cb) ->
     transporter = require('nodemailer').createTransport sails.config.email.opts
     mail = ->
