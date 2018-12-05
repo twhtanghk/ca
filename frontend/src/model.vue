@@ -20,8 +20,8 @@ export default
           for cert in data.certs
             cert.createdAt = new Date cert.createdAt
             cert.updatedAt = new Date cert.updatedAt
-            cert.dtStart = Date.parse cert.dtStart
-            cert.dtEnd = Date.parse cert.dtEnd
+            cert.dtStart = new Date cert.dtStart
+            cert.dtEnd = new Date cert.dtEnd
         data
       me: ->
         await @read data: id: 'me'

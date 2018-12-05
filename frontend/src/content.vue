@@ -7,7 +7,7 @@
       <v-list-tile-content>
         <v-list-tile-title>{{ user.email }}</v-list-tile-title>
         <v-list-tile-sub-title v-if='user.certs.length'>
-          {{ user.certs[0].dtStart }} - {{ user.certs[0].dtEnd }}
+          {{ user.certs[0].dtStart.toLocaleDateString() }} - {{ user.certs[0].dtEnd.toLocaleDateString() }}
         </v-list-tile-sub-title>
       </v-list-tile-content>
     </v-list-tile>
