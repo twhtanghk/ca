@@ -13,6 +13,16 @@ export default
       eventBus:
         default: eventBus
     methods:
+      format: (data) ->
+        data.createdAt = new Date data.createdAt
+        data.updatedAt = new Date data.updatedAt
+        if 'certs' of data
+          for cert in data.certs
+            cert.createdAt = new Date cert.createdAt
+            cert.updatedAt = new Date cert.updatedAt
+            cert.dtStart = Date.parse cert.dtStart
+            cert.dtEnd = Date.parse cert.dtEnd
+        data
       me: ->
         await @read data: id: 'me'
   Cert: new Vue

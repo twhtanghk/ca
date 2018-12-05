@@ -10,16 +10,12 @@
           {{ user.certs[0].dtStart }} - {{ user.certs[0].dtEnd }}
         </v-list-tile-sub-title>
       </v-list-tile-content>
-      <v-list-tile-action>
-        <v-btn icon ripple>
-          <v-icon color='grey lighten-1'>info</v-icon>
-        </v-btn>
-      </v-list-tile-action>
     </v-list-tile>
   </v-list>
 </template>
 
 <script lang='coffee'>
+_ = require 'lodash'
 {eventBus} = require('./lib').default
 {User, Cert} = require('./model').default
 
@@ -35,9 +31,9 @@ export default
         'user-shield'
       else
         'user'
-    list: ->
+    list: (opts = {}) ->
       @users = []
-      for await page from User.iterPage sort: email: 1
+      for await page from User.iterPage data: _.defaults(sort: [email: 'ASC'], opts)
         @users = @users.concat page
     create: ->
       cert = await Cert.create()
@@ -47,10 +43,13 @@ export default
         url: "#{User.baseUrl}/otp"
         data:
           enable: enable
+    search: (text) ->
+      @list email: contains: text
   created: ->
     @list()
     eventBus
       .$on 'user.list', @list
       .$on 'cert.create', @create
       .$on 'user.otp', @otp
+      .$on 'search', @search
 </script>

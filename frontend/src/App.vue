@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <authForm :eventBus='eventBus' :oauth2='oauth2' />
-    <drawer />
     <toolbar />
     <users />
   </v-app>
@@ -19,7 +18,6 @@ Vue.use Vuetify
 export default
   name: 'app'
   components:
-    drawer: require('./drawer').default
     toolbar: require('./toolbar').default
     users: require('./content').default
   data: ->
@@ -49,9 +47,5 @@ export default
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
-  button, .v-avatar {
-    font-size: 1.5rem;
-  }
 }
 </style>
