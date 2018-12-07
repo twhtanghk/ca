@@ -4,4 +4,4 @@ module.exports = (req, res, next) ->
     .then (user) ->
       req.body.createdBy = user.id
       next()
-    .catch next
+    .catch res.serverError
