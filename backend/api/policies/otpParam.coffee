@@ -5,4 +5,4 @@ module.exports = (req, res, next) ->
     .then (user) ->
       req.body.where = id: user.id
       next()
-    .catch res.serverError
+    .catch next
