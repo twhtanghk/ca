@@ -6,4 +6,4 @@ module.exports = (req, res, next) ->
       .findOrCreate {email: req.user.email}, {email: req.user.email}
       .then ->
         next()
-      .catch res.serverError
+      .catch next
