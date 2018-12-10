@@ -13,12 +13,13 @@ module.exports =
       required: true
     secret:
       type: 'string'
+      defaultsTo: ''
     certs:
       collection: 'cert'
       via: 'createdBy'
 
   customToJSON: ->
-    _.omit _.extend(@, enable: @secret?), 'secret'
+    _.omit _.extend(@, enable: @secret != ''), 'secret'
 
   beforeDestroy: (records, cb) ->
     crt = ->

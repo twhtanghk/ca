@@ -7,7 +7,7 @@
         enable = req.param 'enable', null
         if enable?
           user = await sails.models.user.findOne email: req.user.email
-          secret = null
+          secret = ''
           if enable
             secret = authenticator.generateSecret()
           user = await sails.models.user.updateOne {id: user.id}, {secret: secret}
