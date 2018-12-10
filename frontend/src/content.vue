@@ -25,7 +25,7 @@ export default
     users: []
   methods:
     icon: (user) ->
-      if user.secret?
+      if user.enable
         'user-lock'
       else if user.certs.length
         'user-shield'
