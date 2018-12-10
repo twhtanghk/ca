@@ -2,7 +2,7 @@ _ = require 'lodash'
 
 module.exports =
   email:
-    from: 'admin@abc.com'
+    from: process.env.SMTP_FROM || 'admin@abc.com'
     msg: _.template """
         <html>
           <body>
@@ -11,6 +11,6 @@ module.exports =
         </html>
       """
     opts:
-      host: 'smtp.abc.com'
+      host: process.env.SMTP_HOST || 'smtp.abc.com'
       port: 25
       secure: false
