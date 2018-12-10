@@ -15,4 +15,4 @@ module.exports =
     ActionController:
       '*': false
       create: ['isAuth', 'setCreatedBy', 'parseAction']
-      findByHash: ['isAuth', 'setCreatedBy']
+      findByHash: ['isAuth', 'isExpired']
