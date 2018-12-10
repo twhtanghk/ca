@@ -18,7 +18,7 @@
     "otplib": "^10.0.1",
     "pem": "^1.13.2",
     "qrcode": "^1.3.2",
-    "sails": "^1.0.2",
+    "sails": "^1.1.0",
     "sails-hook-orm": "^2.0.0-16",
     "sails-hook-requestlogger-file": "^2.0.5",
     "sails_policy": "0.0.4",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@sailshq/eslint": "^4.19.3",
+    "middleware-flow": "^0.8.0",
     "mocha": "^5.2.0"
   },
   "scripts": {
